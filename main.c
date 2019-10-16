@@ -1,3 +1,7 @@
+/** \file main.c
+ * \brief Fichier main.
+ */
+
 #include <stdio.h>
 
 #include "grille.h"

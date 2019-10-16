@@ -1,3 +1,8 @@
+/**
+ * \file jeu.c
+ * \brief Fichier jeu.c
+ */
+
 #include "jeu.h"
 
 int compte_voisins_vivants (int i, int j, grille g){

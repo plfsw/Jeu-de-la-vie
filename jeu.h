@@ -1,3 +1,8 @@
+/**
+ * \file jeu.h
+ * \brief Header contenant les fonctions pour le fichier jeu.c
+ */
+
 #ifndef __JEU_H
 #define __JEU_H
 

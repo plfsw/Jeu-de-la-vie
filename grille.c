@@ -1,3 +1,8 @@
+/**
+ * \file grille.c
+ * \brief Gestion des grilles.
+ */
+
 #include "grille.h"
 
 void init_grille_from_file (char * filename, grille* g){

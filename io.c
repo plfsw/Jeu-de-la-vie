@@ -1,3 +1,8 @@
+/**
+ * \file io.c
+ * \brief Gestion de l'affichage.
+ */
+
 #include "io.h"
 #include "grille.h"
 

@@ -19,7 +19,7 @@ dist:
 	tar Jcvf $(shell basename $(shell pwd)).tar.xz --transform="s, ^, $(Name)/," *.c *.h
 
 distclean:
-	rm doc/* 
+	rm -r doc/* 
 	rm -r *.tar.xz 
 
 
