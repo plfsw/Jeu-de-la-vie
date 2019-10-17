@@ -25,6 +25,8 @@ void init_grille_from_file (char * filename, grille* g){
 	}
 
 	fclose (pfile);
+
+	g->age = 0;
 	return;
 }
 

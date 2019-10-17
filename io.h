@@ -33,7 +33,7 @@ void affiche_ligne (int c, int* ligne);
  * \brief Affichage d'une grille.
  * \param g Grille à afficher.
  */
-void affiche_grille (grille g);
+void affiche_grille (grille g, int mode);
 
 // effacement d'une grille
 /**
