@@ -33,7 +33,7 @@ void affiche_ligne (int c, int* ligne);
  * \brief Affichage d'une grille.
  * \param g Grille à afficher.
  */
-void affiche_grille (grille g, int mode);
+void affiche_grille (grille g, int mode, int v);
 
 // effacement d'une grille
 /**
@@ -50,6 +50,6 @@ void efface_grille (grille g);
  * \param g Pointeur vers la grille initiale.
  * \param gc Copie de g.
  */
-void debut_jeu(grille *g, grille *gc);
+void debut_jeu(grille *g, grille *gc, grille *ga);
 
 #endif

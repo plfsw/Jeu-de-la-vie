@@ -16,14 +16,16 @@ int main (int argc, char ** argv) {
 		return 1;
 	}
 
-	grille g, gc;
+	grille g, gc, ga;
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
-	affiche_grille(g, 1);
+  alloue_grille (g.nbl, g.nbc, &ga);
+	affiche_grille(g, 1, 1);
 	
-	debut_jeu(&g, &gc);
+	debut_jeu(&g, &gc, &ga);
 
 	libere_grille(&g);
 	libere_grille(&gc);
+  libere_grille (&ga);
 	return 0;
 }

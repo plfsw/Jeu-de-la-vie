@@ -61,8 +61,11 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
  * \param g Grille dans laquelle rendre une cellule vivante.
  * \return 1 si la cellule est vivante, 0 sinon.
  */
-static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] != 0;}
+static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
 
+static inline void rend_plus_vielle(int    i,
+                                    int    j,
+                                    grille g){g.cellules[i][j]++;};
 
 static inline int get_age(int i, int j, grille g){return g.cellules[i][j];}
 
