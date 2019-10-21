@@ -35,7 +35,6 @@ void copie_grille (grille gs, grille gd){
 	int i, j;
 	for (i=0; i<gs.nbl; ++i) for (j=0; j<gs.nbc; ++j) {gd.cellules[i][j] = gs.cellules[i][j]; //printf("%d %d\n", i, j);}
 	}
-	//printf("\n");
 	return;
 }
 
@@ -43,14 +42,14 @@ void copie_grille (grille gs, grille gd){
 void alloue_grille(int l, int c, grille*  g){
 	g -> nbl = l;
 	g -> nbc = c;
-  g->age = 0;
+    g->age = 0;
 	g -> cellules = calloc(g-> nbl, sizeof(int*));
 	for(int i = 0; i < g -> nbl; ++i) {
 		g-> cellules[i] = calloc(g-> nbc, sizeof(int));
 	}
 }
 
-void  libere_grille(grille* g){
+void libere_grille(grille* g){
 	for(int i = 0; i < g -> nbl; ++i){
 		free(g->cellules[i]);
 	}

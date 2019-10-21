@@ -16,7 +16,7 @@ int compte_voisins_vivants_cyclique (int i, int j, grille g){
 	v+= est_vivante(modulo(i+1,l),modulo(j,c),g);
 	v+= est_vivante(modulo(i+1,l),modulo(j+1,c),g);
 
-	return v; 
+	return v;
 }
 
 int compte_voisins_vivants_non_cyclique(int i, int j, grille g){
@@ -32,10 +32,8 @@ int compte_voisins_vivants_non_cyclique(int i, int j, grille g){
 	return v;
 }
 
-void vieillir(grille *g, grille *ga, int v){
-  if(v){
-  ga->age++;
-  printf("%d ",g->age);
+void vieillir(grille *g, grille *ga){
+  ga->age = g->age;
   for(int i = 0; i < g->nbl; i++){
     for(int j = 0; j < g->nbc; j++){
       if(est_vivante (i, j, *g)) rend_plus_vielle (i, j, *ga);
@@ -47,13 +45,17 @@ void vieillir(grille *g, grille *ga, int v){
       }
     }
   }
-  }
 }
 
-void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille), int vi){
-  copie_grille (*g,*gc); // copie temporaire de la grille
-	int i,j,l=g->nbl, c = g->nbc, v;
-	for (i=0; i<l; i++)
+void evolue_vi (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
+    evolue(g, gc, ga, compte_voisins_vivants);
+    vieillir (g, ga);
+}
+
+void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
+    copie_grille (*g,*gc); // copie temporaire de la grille
+    int i,j,l=g->nbl, c = g->nbc, v;
+    for (i=0; i<l; i++)
 	{
 		for (j=0; j<c; ++j)
 		{
@@ -61,12 +63,8 @@ void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(in
 			if (est_vivante(i,j,*g))
 			{ // evolution d'une cellule vivante
 				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
-        /*else {
-          rend_plus_vielle (i, j, *ga);
-          if (get_age (i, j, *ga) > 8) set_morte (i, j, *g);
-        }*/
 			}
-			else 
+			else
 			{ // evolution d'une cellule morte
 				if ( v==3 ) {
         set_vivante(i,j,*g);
@@ -74,7 +72,6 @@ void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(in
       }
 	  }
   }
-  vieillir (g, ga, vi);
-	g->age++;
-	return;
+    g->age++;
+    return;
 }

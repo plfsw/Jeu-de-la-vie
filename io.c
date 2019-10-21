@@ -27,11 +27,13 @@ void affiche_grille (grille g, int mode, int v){
 	int i, l=g.nbl, c=g.nbc;
 	printf("\n");
 	void afficher_age(int age);
-	if(mode) printf("Mode cyclique ");
-	else printf("Mode non cyclique ");
-  if(v) printf(", viellisement activé\n");
-  else printf(", viellisement desactivé\n");
-	printf("Temps d'évolution: %d\n", g.age);	
+	if(mode) printf("Mode cyclique");
+	else printf("Mode non cyclique");
+    if(v) {
+        printf(", viellisement activé\n");
+    }
+    else printf(", viellisement desactivé\n");
+	printf("Temps d'évolution: %d\n", g.age);
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
 		affiche_ligne(c, g.cellules[i]);
@@ -49,69 +51,69 @@ void efface_grille (grille g){
 void debut_jeu(grille *g, grille *gc, grille *ga){
 	char c = getchar();
 	int cyclique = 1;
-  int viellissement = 1;
+    int viellissement = 1;
+    void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = &evolue_vi;
+    int (*pt_voisins)(int, int, grille) = &compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {
-			case '\n' :
-			{ // touche "entree" pour évoluer
-				if(cyclique) evolue(g,gc, ga, &compte_voisins_vivants_cyclique, viellissement);
-				else evolue(g, gc, ga, &compte_voisins_vivants_non_cyclique, viellissement);
-				//efface_grille(*g);
-				//affiche_grille(*g, cyclique, viellissement);
-				break;
-			}
-			case 'n' :
-			{ // touche "n" pour charger une nouvelle grille
-				char str[15];
-				printf("Entrez le nouveau fichier: ");
-				scanf(" %s", str);
-				getchar();
-				printf("%s\n", str);
-				libere_grille(g);
-				libere_grille(gc);
-        libere_grille (ga);
-				init_grille_from_file(str, g);
-				alloue_grille(g->nbl , g->nbc, gc);
-        alloue_grille(g->nbl , g->nbc, ga);
-				//printf("\e[1;1H\e[2J");
-        cyclique = 1;
-				//affiche_grille(*g, cyclique, viellissement);
-				break;
-			}
-      case 'c':
-			{
-				cyclique = (cyclique+1)%2;
-        getchar ();
-        //printf("\e[1;1H\e[2J");
-				//affiche_grille(*g, cyclique, viellissement);
-				break;
-			}
+            case '\n' :
+            { // touche "entree" pour évoluer
+                pt_evolue(g,gc, ga, pt_voisins);
+                break;
+            }
+            case 'n' :
+            { // touche "n" pour charger une nouvelle grille
+                char str[15];
+                printf("Entrez le nouveau fichier: ");
+                scanf(" %s", str);
+                getchar();
+                printf("%s\n", str);
+                libere_grille(g);
+                libere_grille(gc);
+                libere_grille (ga);
+                init_grille_from_file(str, g);
+                alloue_grille(g->nbl , g->nbc, gc);
+                alloue_grille(g->nbl , g->nbc, ga);
+                copie_grille(*g, *ga);
+                break;
+            }
+            case 'c':
+                {
+                cyclique = (cyclique+1)%2;
+                if(cyclique) pt_voisins = &compte_voisins_vivants_cyclique;
+                else pt_voisins = &compte_voisins_vivants_non_cyclique;
+                getchar ();
+                break;
+                }
 
-      case 'v':
-      {
-        viellissement = (viellissement+1)%2;
-        getchar ();
-        //printf("\e[1;1H\e[2J");
-        break;
+            case 'v':
+            {
+            viellissement = (viellissement+1)%2;
+            if(viellissement) {
+                    pt_evolue = &evolue_vi;
+                    alloue_grille(g->nbl, g->nbc, ga);
+                    copie_grille(*g, *ga);
+                    ga->age = g->age;
+            }
+            else {
+                    pt_evolue = &evolue;
+                    libere_grille(ga);
+            }
+            getchar ();
+            break;
 
-      }
-			default :
-			{ // touche non traitée
-				printf("\n\e[1A");
-				break;
-			}
-		}
-    printf("\e[1;1H\e[2J");
-    //efface_grille(*g);
-    if(viellissement)
-		  affiche_grille(*ga, cyclique, viellissement);
-    else
-      affiche_grille (*g, cyclique, viellissement);
-		c = getchar();
+        }
+            default :
+            {
+                printf("\n\e[1A");
+                break;
+            }
+    }
+        printf("\e[1;1H\e[2J");
+        if(viellissement) affiche_grille(*ga, cyclique, viellissement);
+        else affiche_grille (*g, cyclique, viellissement);
+        c = getchar();
 	}
-
-	//libere_grille(g);
-	//libere_grille(gc);
 	return;
 }

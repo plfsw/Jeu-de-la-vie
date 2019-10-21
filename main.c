@@ -9,7 +9,7 @@
 #include "jeu.h"
 
 int main (int argc, char ** argv) {
-	
+
 	if (argc != 2 )
 	{
 		printf("usage : main <fichier grille>\n");
@@ -19,13 +19,14 @@ int main (int argc, char ** argv) {
 	grille g, gc, ga;
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
-  alloue_grille (g.nbl, g.nbc, &ga);
-	affiche_grille(g, 1, 1);
-	
+    alloue_grille (g.nbl, g.nbc, &ga);
+    copie_grille(g, ga);
+	affiche_grille(ga, 1, 1);
+
 	debut_jeu(&g, &gc, &ga);
 
 	libere_grille(&g);
 	libere_grille(&gc);
-  libere_grille (&ga);
+    libere_grille (&ga);
 	return 0;
 }

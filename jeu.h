@@ -15,7 +15,7 @@
  * dans le calcul des voisins des bords cycliques.
  * \param i Dividende
  * \param m Diviseur
- * \return Reste
+ * \return Reste de la disvion.
  */
 static inline int modulo(int i, int m) {return (i+m)%m;}
 
@@ -42,11 +42,19 @@ int compte_voisins_vivants_non_cyclique (int i, int j, grille g);
 
 
 // fait évoluer la grille g d'un pas de temps
-/** \brief Fait évoluer la grille g d'un pas dans le temps.
+/** \brief Fait évoluer la grille g d'un pas dans le temps sans vieillissement.
  * \param *g Grille à faire évoluer.
  * \param *gc Copie de *g.
+ * \param *ga Grille contenant l'age des cellules.
  * \param int (*pf)(int, int, grille) Fonction de comptage des voisins.
  */
-void evolue (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille), int v);
+void evolue (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
 
+/** \brief Fait évoluer la grille g d'un pas dans le temps avec vieillissement.
+ * \param *g Grille à faire évoluer.
+ * \param *gc Copie de *g.
+ * \param *ga Grille contenant l'age des cellules.
+ * \param int (*pf)(int, int, grille) Fonction de comptage des voisins.
+ */
+void evolue_vi (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
 #endif

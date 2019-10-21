@@ -10,20 +10,27 @@
 #include <stdio.h>
 #include <assert.h>
 
-// structure grille : nombre de lignes, nombre de colonnes, tableau de tableau de cellules
-typedef struct {int nbl; int nbc; int** cellules; int age;} grille;
- 
-/** 
+/**
+ * \brief Structure des grilles.
+ */
+typedef struct {
+    int nbl; //!< Nombre de lignes de la structure.
+    int nbc; //!< Nombre de colonnes de la strucutre.
+    int **cellules; //!< Tableau à deux dimensions contenant les cellules de la grille.
+    int age; //!< Age de la grille.
+    } grille;
+
+/**
  * \brief Alloue une grille de taille l*c, et initialise toutes les cellules à mortes.
  * \param l Nombre de lignes de la grille.
  * \param c Nombre de colonnes de la grille.
- * \param g Grille a allouer. 
+ * \param g Grille a allouer.
  */
 void alloue_grille (int l, int c, grille* g);
 
 /**
  * \brief Libère une grille.
- * \param g Grille à libérer. 
+ * \param g Grille à libérer.
  */
 void libere_grille (grille* g);
 
@@ -63,17 +70,28 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
  */
 static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
 
-static inline void rend_plus_vielle(int    i,
-                                    int    j,
-                                    grille g){g.cellules[i][j]++;};
+/**
+ * \brief Augmente l'age de la cellule (i,j) de 1.
+ * \param i Ligne de la cellule à rendre plus vielle.
+ * \param j Colonne de la cellule à rendre plus vielle.
+ * \param g Grille dans laquelle se trouve la cellule.
+ */
+static inline void rend_plus_vielle(int i, int j, grille g){g.cellules[i][j]++;};
 
+/**
+ * \brief Renvoie l'age de la cellule (i,j).
+ * \param i Ligne de la cellule dont on veut avoir l'âge.
+ * \param j Colonne de la cellule dont on veut avoir l'âge.
+ * \param g Grille dans laquelle se trouve la cellule.
+ * \return Renvoie l'age de la cellule (i,j).
+ */
 static inline int get_age(int i, int j, grille g){return g.cellules[i][j];}
 
 // recopie gs dans gd (sans allocation)
 /**
  * \brief Recopie la grille gs dans la grille gd (sans faire d'allocation).
- * \param gs Grille à copie.
- * \param gd Grille copie.
+ * \param gs Grille à copier.
+ * \param gd Grille copiée.
  */
 void copie_grille (grille gs, grille gd);
 

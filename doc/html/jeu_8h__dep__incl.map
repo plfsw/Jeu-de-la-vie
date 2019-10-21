@@ -1,0 +1,6 @@
+<map id="jeu.h" name="jeu.h">
+<area shape="rect" id="node2" href="$io_8h.html" title="Header contenant les fonctions pour liées à l&#39;affichage et aux entrées. " alt="" coords="23,80,65,107"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="Fichier main. " alt="" coords="72,155,133,181"/>
+<area shape="rect" id="node5" href="$jeu_8c.html" title="Fichier jeu.c. " alt="" coords="140,80,191,107"/>
+<area shape="rect" id="node3" href="$io_8c.html" title="Gestion de l&#39;affichage. " alt="" coords="5,155,48,181"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="main.c" name="main.c">
+<area shape="rect" id="node3" href="$grille_8h.html" title="Header contenant les fonctions liées aux grills. " alt="" coords="113,229,173,256"/>
+<area shape="rect" id="node6" href="$io_8h.html" title="Header contenant les fonctions pour liées à l&#39;affichage et aux entrées. " alt="" coords="67,80,109,107"/>
+<area shape="rect" id="node7" href="$jeu_8h.html" title="Header contenant les fonctions pour le fichier jeu.c. " alt="" coords="124,155,175,181"/>
+</map>
