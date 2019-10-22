@@ -18,10 +18,10 @@ Lancer le jeu de la vie:
 ./main grilles/grilleX.txt
 ```
 Pour faire évoluer la grille, appuyez sur `entrée`.   
-![Demonstration de l'evolution](images/ev.gif)
+![Demonstration de l'evolution](images/ev.gif)  
 Pour charger une nouvelle grille, appuyez sur `n`. Ensuite, tapez `grilles/grilleX.txt`.   
-![Demonstration du changement de grille](images/n.gif)  
+![Demonstration du changement de grille](images/n.gif)    
 Pour activer/désactiver le mode cyclique, appuyez sur `c`.  
-![Demonstration du mode cyclique](images/cycle.gif)
+![Demonstration du mode cyclique](images/cycle.gif)  
 Pour activer/désactiver le mode vieillissement, appuyez sur `v`.   
-![Demonstration du vieillissement](images/vi.gif)
+![Demonstration du vieillissement](images/vi.gif)  
