@@ -32,7 +32,7 @@ void affiche_ligne (int c, int* ligne);
  * \param mode Mode cyclique ou non cyclique.
  * \param v Avec vieillissement ou non.
  */
-void affiche_grille (grille g, int mode, int v);
+void affiche_grille (grille g, int mode, int v, char *str);
 
 // effacement d'une grille
 /**

@@ -23,10 +23,11 @@ void affiche_ligne (int c, int* ligne){
 	return;
 }
 
-void affiche_grille (grille g, int mode, int v){
+void affiche_grille (grille g, int mode, int v, char *str){
 	int i, l=g.nbl, c=g.nbc;
 	printf("\n");
-	void afficher_age(int age);
+	//void afficher_age(int age);
+	printf("%s\n", str);
 	if(mode) printf("Mode cyclique");
 	else printf("Mode non cyclique");
     if(v) {
@@ -49,33 +50,37 @@ void efface_grille (grille g){
 }
 
 void debut_jeu(grille *g, grille *gc, grille *ga){
+	char str[] = "";
 	char c = getchar();
 	int cyclique = 1;
-    int viellissement = 1;
-    void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = &evolue_vi;
-    int (*pt_voisins)(int, int, grille) = &compte_voisins_vivants_cyclique;
+  int viellissement = 1;
+  void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
+  int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {
             case '\n' :
             { // touche "entree" pour évoluer
-                pt_evolue(g,gc, ga, pt_voisins);
+                pt_evolue(g, gc, ga, pt_voisins);
                 break;
             }
             case 'n' :
             { // touche "n" pour charger une nouvelle grille
-                char str[15];
+                char *str = malloc(15*sizeof(int));
                 printf("Entrez le nouveau fichier: ");
                 scanf(" %s", str);
                 getchar();
-                printf("%s\n", str);
                 libere_grille(g);
                 libere_grille(gc);
                 libere_grille (ga);
                 init_grille_from_file(str, g);
+								free(str);
                 alloue_grille(g->nbl , g->nbc, gc);
                 alloue_grille(g->nbl , g->nbc, ga);
                 copie_grille(*g, *ga);
+								//scanf change la valeur de pt_voisins???
+								//if (cyclique) pt_voisins = compte_voisins_vivants_cyclique;
+								//else pt_voisins = compte_voisins_vivants_non_cyclique;
                 break;
             }
             case 'c':
@@ -91,14 +96,12 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
             {
             viellissement = (viellissement+1)%2;
             if(viellissement) {
-                    pt_evolue = &evolue_vi;
-                    alloue_grille(g->nbl, g->nbc, ga);
+                    pt_evolue = evolue_vi;
                     copie_grille(*g, *ga);
                     ga->age = g->age;
             }
             else {
-                    pt_evolue = &evolue;
-                    libere_grille(ga);
+                    pt_evolue = evolue;
             }
             getchar ();
             break;
@@ -111,8 +114,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
             }
     }
         printf("\e[1;1H\e[2J");
-        if(viellissement) affiche_grille(*ga, cyclique, viellissement);
-        else affiche_grille (*g, cyclique, viellissement);
+        if(viellissement) affiche_grille(*ga, cyclique, viellissement, str);
+        else affiche_grille (*g, cyclique, viellissement, str);
         c = getchar();
 	}
 	return;
