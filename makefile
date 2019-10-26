@@ -23,7 +23,7 @@ doc:
 	@doxygen
 
 dist:
-	@tar -Jcvf LafossePierre-GoL-v0.1.tar.xz makefile Doxyfile src/ include/
+	@tar -Jcvf LafossePierre-GoL-v0.1.tar.xz makefile Doxyfile src/ include/ README.md
 
 distclean:
 	@rm -r doc
