@@ -27,8 +27,8 @@ Pour activer/désactiver le mode vieillissement, appuyez sur `v`.
 ![Demonstration du vieillissement](https://images2.imgbox.com/7e/b5/HQpNTakO_o.gif)  
 ## Nom des versions
 
-vX.Y.Z
+vX.Y.Z  
 
-X: Nouvelle version majeure
-Y: Ajouts majeurs
-Z: Ajouts mineurs 
+X: Nouvelle version majeure  
+Y: Ajouts majeurs  
+Z: Ajouts mineurs   

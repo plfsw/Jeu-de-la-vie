@@ -1,9 +1,0 @@
-<map id="main.c" name="main.c">
-<area shape="rect" id="node1" title="Fichier main." alt="" coords="89,5,156,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,304,72,331"/>
-<area shape="rect" id="node3" href="$grille_8h.html" title="Header contenant les fonctions liées aux grills." alt="" coords="115,229,181,256"/>
-<area shape="rect" id="node6" href="$io_8h.html" title="Header contenant les fonctions pour liées à l&#39;affichage et aux entrées." alt="" coords="67,80,114,107"/>
-<area shape="rect" id="node7" href="$jeu_8h.html" title="Header contenant les fonctions pour le fichier jeu.c." alt="" coords="127,155,182,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="102,304,173,331"/>
-<area shape="rect" id="node5" title=" " alt="" coords="197,304,272,331"/>
-</map>
