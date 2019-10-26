@@ -87,9 +87,7 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
                 alloue_grille(g->nbl , g->nbc, gc);
                 alloue_grille(g->nbl , g->nbc, ga);
                 copie_grille(*g, *ga);
-								//scanf change la valeur de pt_voisins???
-								//if (cyclique) pt_voisins = compte_voisins_vivants_cyclique;
-								//else pt_voisins = compte_voisins_vivants_non_cyclique;
+								
                 break;
             }
             case 'c':
