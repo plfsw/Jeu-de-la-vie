@@ -1,25 +1,30 @@
 0CC = gcc
 OBJ = main.o grille.o io.o jeu.o
 DEP = grille.h io.h jeu.h
-CFLAGS = -Wall -I. -g
+CFLAGS = -Wall -I include -g
+
+vpath %.c src/
+vpath %.h include/
+vpath %.o obj/
 
 %.o: %.c $(DEP)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	@$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+	@$(CC) -o $@ $^ $(CFLAGS)
+	@mkdir -p obj
+	@mv *.o obj/
 
 clean:
-	rm *.o main
+	@rm main
+	@rm obj/*
 
 doc:
-	doxygen
+	@doxygen
 
 dist:
-	tar Jcvf $(shell basename $(shell pwd)).tar.xz --transform="s, ^, $(Name)/," *.c *.h
+	@tar -Jcvf LafossePierre-GoL-v0.1.tar.xz makefile Doxyfile src/ include/
 
 distclean:
-	rm -r doc
-	rm -r *.tar.xz
-
-
+	@rm -r doc
+	@rm -r *.tar.xz

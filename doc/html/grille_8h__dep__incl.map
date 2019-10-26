@@ -1,0 +1,9 @@
+<map id="grille.h" name="grille.h">
+<area shape="rect" id="node1" title="Header contenant les fonctions liées aux grills." alt="" coords="133,5,200,32"/>
+<area shape="rect" id="node2" href="$grille_8c.html" title="Gestion des grilles." alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" href="$io_8c.html" title="Gestion de l&#39;affichage." alt="" coords="108,229,153,256"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="Fichier main." alt="" coords="199,229,265,256"/>
+<area shape="rect" id="node5" href="$io_8h.html" title="Header contenant les fonctions pour liées à l&#39;affichage et aux entrées." alt="" coords="147,155,194,181"/>
+<area shape="rect" id="node6" href="$jeu_8h.html" title="Header contenant les fonctions pour le fichier jeu.c." alt="" coords="205,80,259,107"/>
+<area shape="rect" id="node7" href="$jeu_8c.html" title="Fichier jeu.c." alt="" coords="269,155,323,181"/>
+</map>
