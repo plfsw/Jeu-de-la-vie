@@ -21,7 +21,7 @@ void affiche_trait (int c);
 /**
  * \brief Affichage d'une ligne verticale pour la grille.
  * \param c Nombre de colonnes.
- * \param l Pointeur vers le nombre de lignes.
+ * \param ligne Pointeur vers le nombre de lignes.
  */
 void affiche_ligne (int c, int* ligne);
 
@@ -32,7 +32,7 @@ void affiche_ligne (int c, int* ligne);
  * \param mode Mode cyclique ou non cyclique.
  * \param v Avec vieillissement ou non.
  */
-void affiche_grille (grille g, int mode, int v, char *str);
+void affiche_grille (grille g, int mode, int v);
 
 // effacement d'une grille
 /**

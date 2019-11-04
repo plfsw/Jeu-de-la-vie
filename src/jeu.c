@@ -5,6 +5,7 @@
 
 #include "jeu.h"
 
+//fonction de comptage en mode cyclique
 int compte_voisins_vivants_cyclique (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
 	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
@@ -19,6 +20,7 @@ int compte_voisins_vivants_cyclique (int i, int j, grille g){
 	return v;
 }
 
+//fonction de comptage en mode non-cyclique
 int compte_voisins_vivants_non_cyclique(int i, int j, grille g){
 	int v = 0, l = g.nbl, c = g.nbc;
 	v += i > 0 && j > 0 && est_vivante(i-1, j-1, g);
@@ -32,6 +34,7 @@ int compte_voisins_vivants_non_cyclique(int i, int j, grille g){
 	return v;
 }
 
+//fait vieillir une cellule, utilisée pour le vieillissement
 void vieillir(grille *g, grille *ga){
   ga->age = g->age;
   for(int i = 0; i < g->nbl; i++){
@@ -42,16 +45,18 @@ void vieillir(grille *g, grille *ga){
         {
         set_morte (i, j, *ga);
         set_morte (i, j, *g);
-      }
+      	}
     }
   }
 }
 
+//fonction calculant l'évolution quand le vieillissement est activé
 void evolue_vi (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
     evolue(g, gc, ga, compte_voisins_vivants);
     vieillir (g, ga);
 }
 
+//fonction calculant l'évolution quand le vieillissement n'est pas activé 
 void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
     copie_grille (*g,*gc); // copie temporaire de la grille
     int i,j,l=g->nbl, c = g->nbc, v;

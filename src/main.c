@@ -21,7 +21,7 @@ int main (int argc, char ** argv) {
 	alloue_grille (g.nbl, g.nbc, &gc);
     alloue_grille (g.nbl, g.nbc, &ga);
     copie_grille(g, ga);
-	affiche_grille(ga, 1, 1, argv[1]);
+	affiche_grille(ga, 1, 1);
 
 	debut_jeu(&g, &gc, &ga);
 

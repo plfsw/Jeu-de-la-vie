@@ -57,4 +57,10 @@ void evolue (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
  * \param int (*pf)(int, int, grille) Fonction de comptage des voisins.
  */
 void evolue_vi (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
+
+/** \brief Fait vieillir les cellules de la grille ga.
+ * \param g Grille contenant les cellules
+ * \param ga Grille contenant l'age des cellules de g
+ */
+void vieillir(grille *g, grille *ga);
 #endif

@@ -95,5 +95,9 @@ static inline int get_age(int i, int j, grille g){return g.cellules[i][j];}
  */
 void copie_grille (grille gs, grille gd);
 
+/**
+ * \brief Efface tout le terminal.
+ */
+void efface_ecran ();
 
 #endif
