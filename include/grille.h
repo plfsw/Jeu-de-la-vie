@@ -51,6 +51,23 @@ void init_grille_from_file (char * filename, grille* g);
  */
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
 
+/**
+ * \brief Rend non-viable la cellule (i, j) de la grille g.
+ * \param i Ligne de la cellule à rendre non-viable.
+ * \param j Colonne de la cellule à rendre non-viable.
+ * \param g Grille dans laquelle rendre une cellule non-viable.
+ */
+static inline void set_non_viable(int i, int j, grille g){g.cellules[i][j] = -1;}
+
+/**
+ * \brief Teste si la cellule (i, j) de la grille g est non-viable.
+ * \param i Ligne de la cellule à rendre non-viable.
+ * \param j Colonne de la cellule à rendre non-viable.
+ * \param g Grille dans laquelle rendre une cellule non-viable.
+ * \return 1 si la cellule est non-viable, 0 sinon.
+ */
+static inline int est_non_viable(int i, int j, grille g){return g.cellules[i][j] == -1;}
+
 // rend morte la cellule (i,j) de la grille g
 /**
  * \brief Rend morete la cellule (i,j) de la grille g.

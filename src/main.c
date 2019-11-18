@@ -27,6 +27,6 @@ int main (int argc, char ** argv) {
 
 	libere_grille(&g);
 	libere_grille(&gc);
-  libere_grille (&ga);
+    libere_grille (&ga);
 	return 0;
 }

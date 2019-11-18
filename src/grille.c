@@ -11,7 +11,7 @@ void init_grille_from_file (char * filename, grille* g){
 	pfile = fopen(filename, "r");
 	assert (pfile != NULL);
 
-	int i,j,n,l,c,vivantes=0;
+	int i,j,n,l,c,vivantes,non_viables=0;
 
 	fscanf(pfile, "%d", & l);
 	fscanf(pfile, "%d", & c);
@@ -23,6 +23,12 @@ void init_grille_from_file (char * filename, grille* g){
 		fscanf(pfile, "%d", & i);
 		fscanf(pfile, "%d", & j);
 		set_vivante(i,j,*g);
+	}
+	fscanf(pfile, "%d", & non_viables);
+	for (n=0; n < non_viables; ++n){
+        fscanf(pfile, "%d", & i);
+		fscanf(pfile, "%d", & j);
+		set_non_viable(i,j,*g);
 	}
 
 	fclose (pfile);
@@ -43,10 +49,20 @@ void copie_grille (grille gs, grille gd){
 void alloue_grille(int l, int c, grille*  g){
 	g -> nbl = l;
 	g -> nbc = c;
-    g->age = 0;
+  g->age = 0;
 	g -> cellules = calloc(g-> nbl, sizeof(int*));
-	for(int i = 0; i < g -> nbl; ++i) {
-		g-> cellules[i] = calloc(g-> nbc, sizeof(int));
+	if(g->cellules != NULL){
+        for(int i = 0; i < g -> nbl; ++i) {
+            g-> cellules[i] = calloc(g-> nbc, sizeof(int));
+            if (g->cellules[i] == NULL) {
+              printf("Impossible d'allouer de la mémoire.\n");
+              exit(0);
+            }
+        }
+	}
+	else{
+        printf("Impossible d'allouer de la mémoire.\n");
+        exit(0);
 	}
 }
 

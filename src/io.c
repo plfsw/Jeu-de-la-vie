@@ -19,7 +19,11 @@ void affiche_trait (int c){
 void affiche_ligne (int c, int* ligne){
 	int i;
 	for (i=0; i<c; ++i)
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| %d ", ligne[i]);
+		if (ligne[i] == 0 ) printf ("|   ");
+		else {
+            if(ligne[i] == -1) printf ("| X ");
+            else printf ("| %d ", ligne[i]);
+		}
 	printf("|\n");
 	return;
 }
@@ -61,8 +65,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
 	char str[40];
 	char c = getchar();
 	int cyclique = 1, vieillissement = 1;
-  void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
-  int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
+    void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
+    int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {
@@ -75,26 +79,23 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
             { // touche "n" pour charger une nouvelle grille
 
 
-							  printf("Entrez le nouveau fichier: ");
+                printf("Entrez le nouveau fichier: ");
                 scanf(" %s", str);
                 getchar();
 
-								libere_grille(g);
-								libere_grille(gc);
-								libere_grille (ga);
+                libere_grille(g);
+                libere_grille(gc);
+                libere_grille (ga);
 
                 init_grille_from_file(str, g);
                 alloue_grille(g->nbl , g->nbc, gc);
                 alloue_grille(g->nbl , g->nbc, ga);
                 copie_grille(*g, *ga);
-								//scanf change la valeur de pt_voisins???
-								//if (cyclique) pt_voisins = compte_voisins_vivants_cyclique;
-								//else pt_voisins = compte_voisins_vivants_non_cyclique;
                 break;
             }
             case 'c':
                 { // touche "c" pour basculer d'un mode de comptage à l'autre
-                cyclique = (cyclique+1)%2;
+                cyclique = !cyclique;
                 if(cyclique) pt_voisins = &compte_voisins_vivants_cyclique;
                 else pt_voisins = &compte_voisins_vivants_non_cyclique;
                 getchar ();
@@ -103,25 +104,25 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
 
             case 'v':
             { // touche "v" pour activer/désactiver le vieillissement
-            vieillissement = (vieillissement+1)%2;
-            if(vieillissement) {
+                vieillissement = !vieillissement;
+                if(vieillissement) {
                     pt_evolue = evolue_vi;
                     copie_grille(*g, *ga);
                     ga->age = g->age;
-            }
-            else {
+                }
+                else {
                     pt_evolue = evolue;
-            }
-            getchar ();
-            break;
-
-        }
-            default :
-            {
-                printf("\n\e[1A");
+                }
+                getchar ();
                 break;
+
             }
-    }
+                default :
+                {
+                    printf("\n\e[1A");
+                    break;
+                }
+        }
 				// appel différent de affiche_grille en fonction de vieillissement
         if(vieillissement) affiche_grille(*ga, cyclique, vieillissement);
         else affiche_grille (*g, cyclique, vieillissement);

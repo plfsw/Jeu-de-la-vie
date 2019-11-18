@@ -9,14 +9,17 @@ vpath %.o obj/
 
 %.o: %.c $(DEP)
 	@$(CC) -c -o $@ $< $(CFLAGS)
+	@mkdir -p bin
 
 main: $(OBJ)
 	@$(CC) -o $@ $^ $(CFLAGS)
 	@mkdir -p obj
 	@mv *.o obj/
+	@mkdir -p bin
+	@mv main bin/
 
 clean:
-	@rm main
+	@rm bin/main
 	@rm obj/*
 
 doc:
