@@ -1,7 +1,8 @@
 0CC = gcc
-OBJ = main.o grille.o io.o jeu.o
+OBJ = main.o grille.o io.o jeu.o io_cairo.o
 DEP = grille.h io.h jeu.h
-CFLAGS = -Wall -I include -g
+CFLAGS = -Wall -I include -g -lcairo -lm -lX11 -Iinclude -I/usr/include/cairo
+
 
 vpath %.c src/
 vpath %.h include/
