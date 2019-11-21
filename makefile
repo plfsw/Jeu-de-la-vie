@@ -20,8 +20,8 @@ main: $(OBJ)
 	@mv main bin/
 
 clean:
-	@rm bin/main
-	@rm obj/*
+	@rm -f bin/main
+	@rm -f obj/*
 
 doc:
 	@doxygen

@@ -10,15 +10,21 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include "grille.h"
-#define SIZEX 600
-#define SIZEY 600
+#include "jeu.h"
+#define SIZEX 400
+#define SIZEY 400
 #define SIZECELL 21
+#define BLACK 0.22, 0.22, 0.22
+#define GRAY 0.88, 0.88, 0.88
+#define BROWN 0.51, 0.41, 0.32
+
+
 
 void paint(cairo_surface_t *surface);
 
 void debut_jeu_cairo (grille *g, grille *gc, grille *ga);
 
-void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface);
+void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga);
 
-void draw_cell_cairo(int i, int j, cairo_surface_t *surface);
+void draw_cell_cairo(int i, int j, cairo_surface_t *surface, grille g, grille ga, int vieillissement);
 #endif
