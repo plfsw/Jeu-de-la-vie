@@ -8,6 +8,7 @@
 #include <cairo.h>
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include "grille.h"
 #define SIZEX 600
 #define SIZEY 600
