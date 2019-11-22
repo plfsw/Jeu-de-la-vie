@@ -20,11 +20,15 @@ int main (int argc, char ** argv) {
 	grille g, gc, ga;
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
-    alloue_grille (g.nbl, g.nbc, &ga);
-    copie_grille(g, ga);
-	//affiche_grille(ga, 1, 1);
-
+  alloue_grille (g.nbl, g.nbc, &ga);
+  copie_grille(g, ga);
+  
+  #ifndef TEXT
 	debut_jeu_cairo(&g, &gc, &ga);
+  #else
+  affiche_grille(ga, 1, 1);
+  debut_jeu(&g, &gc, &ga);
+  #endif
 
 	libere_grille(&g);
 	libere_grille(&gc);

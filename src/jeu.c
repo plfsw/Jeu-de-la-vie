@@ -5,6 +5,7 @@
 
 #include "jeu.h"
 
+
 //fonction de comptage en mode cyclique
 int compte_voisins_vivants_cyclique (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -54,8 +55,8 @@ void vieillir(grille *g, grille *ga){
 
 //fonction calculant l'évolution quand le vieillissement est activé
 void evolue_vi (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
-    evolue(g, gc, ga, compte_voisins_vivants);
     vieillir (g, ga);
+    evolue(g, gc, ga, compte_voisins_vivants);
 }
 
 //fonction calculant l'évolution quand le vieillissement n'est pas activé

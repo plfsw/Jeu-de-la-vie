@@ -28,6 +28,9 @@ typedef struct {
  */
 void alloue_grille (int l, int c, grille* g);
 
+
+int tous_mortes(grille g);
+
 /**
  * \brief Libère une grille.
  * \param g Grille à libérer.

@@ -73,3 +73,13 @@ void libere_grille(grille* g){
 	}
 	free(g->cellules);
 }
+
+//verifie si toutes les cellules sont mortes
+int tous_mortes(grille g){
+  for(int i = 0; i < g.nbl; i++){
+    for(int j = 0; j < g.nbc; j++){
+      if(est_vivante(i, j, g)) return 0;
+    }
+  }
+  return 1;
+}

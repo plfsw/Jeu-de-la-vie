@@ -2,6 +2,8 @@
 OBJ = main.o grille.o io.o jeu.o io_cairo.o
 DEP = grille.h io.h jeu.h
 CFLAGS = -Wall -I include -g -lcairo -lm -lX11 -Iinclude -I/usr/include/cairo
+MODE = GRAPHICAL
+
 
 
 vpath %.c src/
@@ -9,11 +11,11 @@ vpath %.h include/
 vpath %.o obj/
 
 %.o: %.c $(DEP)
-	@$(CC) -c -o $@ $< $(CFLAGS)
+	@$(CC) -D $(MODE) -c -o $@ $< $(CFLAGS)
 	@mkdir -p bin
 
 main: $(OBJ)
-	@$(CC) -o $@ $^ $(CFLAGS)
+	@$(CC) -o $@ $^ $(CFLAGS) 
 	@mkdir -p obj
 	@mv *.o obj/
 	@mkdir -p bin
