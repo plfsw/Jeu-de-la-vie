@@ -25,7 +25,7 @@ void paint(cairo_surface_t *surface);
 
 void debut_jeu_cairo (grille *g, grille *gc, grille *ga);
 
-void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga);
+void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga, int p);
 
 void draw_cell_cairo(int i, int j, cairo_surface_t *surface, grille g, grille ga, int vieillissement);
 

@@ -83,3 +83,12 @@ int tous_mortes(grille g){
   }
   return 1;
 }
+
+int sont_identiques(grille g, grille g2){
+  for(int i = 0; i < g.nbl; i++){
+    for(int j = 0; j < g.nbc; j++){
+      if(est_vivante(i, j, g) != est_vivante(i, j, g2)) return 0;
+    }
+  }
+  return 1;
+}

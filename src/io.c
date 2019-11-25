@@ -65,8 +65,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
 	char str[40];
 	char c = getchar();
 	int cyclique = 1, vieillissement = 1;
-    void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
-    int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
+  void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
+  int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {
@@ -116,6 +116,12 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
                 getchar ();
                 break;
 
+            }
+            
+            case 'o':
+            {
+              periode(*g, pt_voisins);
+              break;
             }
                 default :
                 {

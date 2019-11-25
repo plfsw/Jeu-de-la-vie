@@ -5,6 +5,22 @@
 
 #include "jeu.h"
 
+int periode(grille g, int (*compte_voisins_vivants)(int, int, grille)){
+  int p = 1;
+  grille gs, gs2;
+  alloue_grille(g.nbl, g.nbc, &gs);
+  copie_grille(g, gs);
+  alloue_grille(g.nbl, g.nbc, &gs2);
+  copie_grille(g, gs2);
+  evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
+  while(p < 100 && !(sont_identiques(g, gs))) {
+    if(tous_mortes(gs)) return -1;
+    evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
+    p++;
+  }
+  return p;
+ }
+
 
 //fonction de comptage en mode cyclique
 int compte_voisins_vivants_cyclique (int i, int j, grille g){
@@ -50,7 +66,7 @@ void vieillir(grille *g, grille *ga){
         }
       }
     }
-    }
+  }
 }
 
 //fonction calculant l'évolution quand le vieillissement est activé

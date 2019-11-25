@@ -21,10 +21,10 @@ void draw_cell_cairo(int i, int j, cairo_surface_t *surface, grille g, grille ga
 
 void read_string_cairo(char t[], Display* dpy, XEvent e, cairo_surface_t *surface){
     int nbre;
-    char chaine[20];
+    char chaine[50];
     cairo_t *cr;
     cr = cairo_create(surface);
-    for(int i = 0; i < 20; i++) {
+    for(int i = 0; i < 50; i++) {
         chaine[i] = 0;
         t[i] = 0;
     }
@@ -53,11 +53,14 @@ void read_string_cairo(char t[], Display* dpy, XEvent e, cairo_surface_t *surfac
     t[i-1] = '\0';
 }
 
-void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga){
+void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga, int p){
     int l=g.nbl, c=g.nbc;
     int x = SIZEX/2-(c*SIZECELL)/2, y = SIZEY/2-(l*SIZECELL)/2;
     char age[10];
     sprintf(age, "%d", g.age);
+    
+    char per[10];
+    sprintf(per, "%d", p);
     
     cairo_t *cr;
     cr = cairo_create(surface);
@@ -81,6 +84,14 @@ void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, i
     cairo_show_text(cr, "Temps d'évolution: ");
     cairo_move_to(cr, 103, 65);
     cairo_show_text(cr, age);
+    
+    cairo_move_to(cr, 5, 80);
+    cairo_show_text(cr, "Periode: ");
+    cairo_move_to(cr, 50, 80);
+    if(p == -1 || p == 100) cairo_show_text(cr, "Soit il n'y a pas d'osiclations, soit la periode est trop importante.");
+    else if(p > 0) cairo_show_text(cr, per);
+    else if(p == 0) cairo_show_text(cr, "Appuyez sur la touche o pour calculer la periode.");
+    
     
     cairo_set_source_rgb(cr, GREY);
     for(int i = 0; i <= c; i++){
@@ -120,8 +131,8 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
     int nbre;
     char chaine[20];
     KeySym touche;
-    int cyclique = 1, vieillissement = 1;
-    char t[30];
+    int cyclique = 1, vieillissement = 1, p = 0;
+    char t[50];
     
 // init the display
     if(!(dpy=XOpenDisplay(NULL))){
@@ -149,7 +160,7 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
 	while(1) {
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
-			affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga);
+			affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga, p);
 		} else if(e.type==ButtonPress){
 			if(e.xbutton.button == 1) pt_evolue(g, gc, ga, pt_voisins);
 			else {
@@ -196,6 +207,11 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
                     copie_grille(*g, *ga);
                     break;
                 }
+              case 'o':
+              {
+                p = periode(*g, pt_voisins);
+                break;
+              }
                 default :
                 {
                     break;
@@ -203,7 +219,7 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
         }
             
     }
-		affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga);
+		affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga, p);
   }
 
 	cairo_surface_destroy(cs); // destroy cairo surface

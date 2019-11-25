@@ -120,4 +120,6 @@ void copie_grille (grille gs, grille gd);
  */
 void efface_ecran ();
 
+int sont_identiques(grille g, grille g2);
+
 #endif
