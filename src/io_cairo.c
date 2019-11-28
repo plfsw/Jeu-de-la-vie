@@ -1,8 +1,11 @@
-#include "io_cairo.h"
-#include "jeu.h"
-#include <unistd.h>
+/**
+ * \file io_cairo.c
+ * \brief Fichier contenant les fonctions io du mode graphique.
+ */
 
-void draw_cell_cairo(int i, int j, cairo_surface_t *surface, grille g, grille ga, int vieillissement){
+#include "io_cairo.h"
+
+void draw_cell_cairo(grille g, grille ga, int i, int j, cairo_surface_t *surface, int vieillissement){
     int x = SIZEX/2-(g.nbc*SIZECELL)/2, y = SIZEY/2-(g.nbl*SIZECELL)/2;
     cairo_t *cr;
     cr = cairo_create(surface);
@@ -11,10 +14,10 @@ void draw_cell_cairo(int i, int j, cairo_surface_t *surface, grille g, grille ga
     float colors_g[8] = {222.0/256, 195.0/256, 167.0/256, 139.0/256, 112.0/256, 67.0/256, 56.0/256, 44.0/256};
     float colors_b[8] = {150.0/256, 167.0/256, 187.0/256, 202.0/256, 219.0/256, 88.0/256, 73.0/256, 58.0/256};
     
-    if(g.cellules[j][i] == -1) cairo_set_source_rgb(cr, BROWN);
-    else if(vieillissement) cairo_set_source_rgb(cr, colors_r[ga.cellules[j][i]-1], colors_g[ga.cellules[j][i]-1], colors_b[ga.cellules[j][i]-1]);
+    if(g.cellules[i][j] == -1) cairo_set_source_rgb(cr, BROWN);
+    else if(vieillissement) cairo_set_source_rgb(cr, colors_r[ga.cellules[i][j]-1], colors_g[ga.cellules[i][j]-1], colors_b[ga.cellules[i][j]-1]);
     else cairo_set_source_rgb(cr, colors_r[0], colors_g[0], colors_b[0]);
-    cairo_rectangle(cr,x+(i * SIZECELL)+4,y+(j * SIZECELL)+4,13, 13);
+    cairo_rectangle(cr, x+(j * SIZECELL)+4, y+(i * SIZECELL)+4, 13, 13);
     cairo_fill(cr);
     cairo_destroy(cr);
 }
@@ -53,7 +56,35 @@ void read_string_cairo(char t[], Display* dpy, XEvent e, cairo_surface_t *surfac
     t[i-1] = '\0';
 }
 
-void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, int cyclique, int vieillissement, grille ga, int p){
+void affiche_infos_cairo(cairo_t *cr, int vieillissement, int cyclique, 
+  int p,char *per, char* age){
+    
+  cairo_set_source_rgb(cr, GREY);
+  cairo_move_to(cr, 5, 10);
+  cairo_show_text(cr, "Jeu de la vie, v0.2");
+  
+  cairo_move_to(cr, 5, 35);
+  if(vieillissement) cairo_show_text(cr, "Vieillissement activé.");
+  else cairo_show_text(cr, "Vieillissement désactivé.");
+  cairo_move_to(cr, 5, 50);
+  if(cyclique) cairo_show_text(cr, "Mode cyclique activé.");
+  else cairo_show_text(cr, "Mode cyclique désactivé.");
+  
+  cairo_move_to(cr, 5, 65);
+  cairo_show_text(cr, "Temps d'évolution: ");
+  cairo_move_to(cr, 103, 65);
+  cairo_show_text(cr, age);
+  
+  cairo_move_to(cr, 5, 80);
+  cairo_show_text(cr, "Periode: ");
+  cairo_move_to(cr, 50, 80);
+  
+  if(p == -1) cairo_show_text(cr, "Soit il n'y a pas d'osiclations, soit la periode est trop importante.");
+  else if(p > 0) cairo_show_text(cr, per);
+  else if(p == 0) cairo_show_text(cr, "Appuyez sur la touche o pour calculer la periode.");
+}
+
+void affiche_grille_cairo(grille g, grille ga, cairo_surface_t *surface, int cyclique, int vieillissement, int p){
     int l=g.nbl, c=g.nbc;
     int x = SIZEX/2-(c*SIZECELL)/2, y = SIZEY/2-(l*SIZECELL)/2;
     char age[10];
@@ -68,32 +99,10 @@ void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, i
     // background
     cairo_set_source_rgb(cr, BLACK);
     cairo_paint(cr);
+    affiche_infos_cairo(cr, vieillissement, cyclique, p, per, age);
     
     cairo_set_source_rgb(cr, GREY);
-    cairo_move_to(cr, 5, 10);
-    cairo_show_text(cr, "Jeu de la vie, v0.2");
     
-    cairo_move_to(cr, 5, 35);
-    if(vieillissement) cairo_show_text(cr, "Vieillissement activé.");
-    else cairo_show_text(cr, "Vieillissement désactivé.");
-    cairo_move_to(cr, 5, 50);
-    if(cyclique) cairo_show_text(cr, "Mode cyclique activé.");
-    else cairo_show_text(cr, "Mode cyclique désactivé.");
-    
-    cairo_move_to(cr, 5, 65);
-    cairo_show_text(cr, "Temps d'évolution: ");
-    cairo_move_to(cr, 103, 65);
-    cairo_show_text(cr, age);
-    
-    cairo_move_to(cr, 5, 80);
-    cairo_show_text(cr, "Periode: ");
-    cairo_move_to(cr, 50, 80);
-    if(p == -1 || p == 100) cairo_show_text(cr, "Soit il n'y a pas d'osiclations, soit la periode est trop importante.");
-    else if(p > 0) cairo_show_text(cr, per);
-    else if(p == 0) cairo_show_text(cr, "Appuyez sur la touche o pour calculer la periode.");
-    
-    
-    cairo_set_source_rgb(cr, GREY);
     for(int i = 0; i <= c; i++){
         cairo_move_to(cr, x, y);
         cairo_line_to(cr, x, y+l*SIZECELL);
@@ -108,10 +117,9 @@ void affiche_grille_cairo(grille g, int mode, int v, cairo_surface_t *surface, i
         cairo_stroke (cr);
         y += SIZECELL;
     }
-
-    for(int i = 0; i < l; i++){
-        for(int j = 0; j < c; j++){
-            if(g.cellules[i][j] != 0) draw_cell_cairo(j, i, surface, g, ga, vieillissement);
+    for(int j = 0; j < c; j++){
+      for(int i = 0; i < l; i++){
+            if(g.cellules[i][j] != 0) draw_cell_cairo(g, ga, i, j, surface, vieillissement);
         }
     }
 
@@ -160,7 +168,7 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
 	while(1) {
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
-			affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga, p);
+			affiche_grille_cairo(*g, *ga, cs, cyclique, vieillissement, p) ;
 		} else if(e.type==ButtonPress){
 			if(e.xbutton.button == 1) pt_evolue(g, gc, ga, pt_voisins);
 			else {
@@ -200,6 +208,8 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
                     libere_grille(g);
                     libere_grille(gc);
                     libere_grille (ga);
+                    
+                    p = 0;
 
                     init_grille_from_file(t, g);
                     alloue_grille(g->nbl , g->nbc, gc);
@@ -219,7 +229,7 @@ void debut_jeu_cairo (grille *g, grille *gc, grille *ga){
         }
             
     }
-		affiche_grille_cairo(*g, 1, 1, cs,  cyclique, vieillissement, *ga, p);
+		affiche_grille_cairo(*g, *ga, cs, cyclique, vieillissement, p);
   }
 
 	cairo_surface_destroy(cs); // destroy cairo surface

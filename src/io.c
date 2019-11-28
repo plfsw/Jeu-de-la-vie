@@ -31,7 +31,7 @@ void affiche_ligne (int c, int* ligne){
 /* fonction qui affiche la grille ainsi que le emps d'évolution, le mode de
 de comptage des voisins et lde monde de vieillissement
 */
-void affiche_grille (grille g, int mode, int v){
+void affiche_grille (grille g, int mode, int v, int p){
 	int i, l=g.nbl, c=g.nbc;
 	efface_ecran();
 	if(mode) printf("Mode cyclique");
@@ -40,6 +40,9 @@ void affiche_grille (grille g, int mode, int v){
         printf(", vieillissement activé\n");
     }
     else printf(", vieillissement desactivé\n");
+  if(p == -1) printf("Pas de periode ou periode trop importante.\n");
+  else if (!p) printf("Utiliser la touche 'o' pour calculer la periode.\n");
+  else printf("Periode: %d\n", p);
 	printf("Temps d'évolution: %d\n", g.age);
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
@@ -64,7 +67,7 @@ void efface_grille (grille g){
 void debut_jeu(grille *g, grille *gc, grille *ga){
 	char str[40];
 	char c = getchar();
-	int cyclique = 1, vieillissement = 1;
+	int cyclique = 1, vieillissement = 1, p = 0;
   void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
   int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
@@ -86,6 +89,7 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
                 libere_grille(g);
                 libere_grille(gc);
                 libere_grille (ga);
+                p = 0;
 
                 init_grille_from_file(str, g);
                 alloue_grille(g->nbl , g->nbc, gc);
@@ -120,7 +124,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
             
             case 'o':
             {
-              periode(*g, pt_voisins);
+              p = periode(*g, pt_voisins);
+              getchar ();
               break;
             }
                 default :
@@ -130,8 +135,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
                 }
         }
 				// appel différent de affiche_grille en fonction de vieillissement
-        if(vieillissement) affiche_grille(*ga, cyclique, vieillissement);
-        else affiche_grille (*g, cyclique, vieillissement);
+        if(vieillissement) affiche_grille(*ga, cyclique, vieillissement, p);
+        else affiche_grille (*g, cyclique, vieillissement, p);
         c = getchar();
 	}
 	return;

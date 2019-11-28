@@ -1,4 +1,4 @@
-# Jeu de la vie v0.1.0
+# Jeu de la vie v0.2.0
 
 Implémentation en C du jeu de la vie, l'automate cellulaire de [John Conway](https://fr.wikipedia.org/wiki/John_Horton_Conway).
 

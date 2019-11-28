@@ -13,12 +13,19 @@ int periode(grille g, int (*compte_voisins_vivants)(int, int, grille)){
   alloue_grille(g.nbl, g.nbc, &gs2);
   copie_grille(g, gs2);
   evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
-  while(p < 100 && !(sont_identiques(g, gs))) {
+  grille tab[PMAX];
+  int ftab = 0;
+  while(p < PMAX && !(sont_identiques(g, gs))) {
     if(tous_mortes(gs)) return -1;
     evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
     p++;
+    tab[ftab] = gs;
+    ftab++;
   }
-  return p;
+  for(int i = 0; i < PMAX && p == PMAX; i++)
+    p = periode(tab[i], compte_voisins_vivants);
+  if(p == PMAX) return -1;
+  else return p;
  }
 
 
@@ -71,8 +78,8 @@ void vieillir(grille *g, grille *ga){
 
 //fonction calculant l'évolution quand le vieillissement est activé
 void evolue_vi (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(int, int, grille)){
-    vieillir (g, ga);
     evolue(g, gc, ga, compte_voisins_vivants);
+    vieillir (g, ga);
 }
 
 //fonction calculant l'évolution quand le vieillissement n'est pas activé
@@ -98,6 +105,6 @@ void evolue (grille *g, grille *gc, grille *ga, int (*compte_voisins_vivants)(in
             }
 	  }
   }
-    g->age++;
-    return;
+  g->age++;
+  return;
 }

@@ -6,8 +6,16 @@
 #ifndef __JEU_H
 #define __JEU_H
 
+#define PMAX 100
+
 #include "grille.h"
-#include "io_cairo.h"
+
+/**
+ * \brief Détermine la periodicité d'une grille.
+ * \param g Grille dont on cherche à déterminer la période.
+ * \param *compte_voisins_vivants Pointeur sur une fonction de calcul des voisins d'une cellule.
+ * \return -1 si la periode excède PMAX ou si il l'évolution de la grille n'est pas période, la periode sinon.
+ */
 
 int periode(grille g, int (*compte_voisins_vivants)(int, int, grille));
 
