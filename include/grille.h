@@ -28,6 +28,14 @@ typedef struct {
  */
 void alloue_grille (int l, int c, grille* g);
 
+
+/**
+ * \brief Verifie si toutes les cellules de la grille g sont mortes.
+ * \param g Grille dans laquelle on cherche si toutes les cellules sont mortes.
+ * \return 1 si toutes les cellules sont mortes, 0 sinon.
+ */
+int toutes_mortes(grille g);
+
 /**
  * \brief Libère une grille.
  * \param g Grille à libérer.
@@ -50,6 +58,23 @@ void init_grille_from_file (char * filename, grille* g);
  * \param g Grille dans laquelle rendre une cellule vivante.
  */
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
+
+/**
+ * \brief Rend non-viable la cellule (i, j) de la grille g.
+ * \param i Ligne de la cellule à rendre non-viable.
+ * \param j Colonne de la cellule à rendre non-viable.
+ * \param g Grille dans laquelle rendre une cellule non-viable.
+ */
+static inline void set_non_viable(int i, int j, grille g){g.cellules[i][j] = -1;}
+
+/**
+ * \brief Teste si la cellule (i, j) de la grille g est non-viable.
+ * \param i Ligne de la cellule à rendre non-viable.
+ * \param j Colonne de la cellule à rendre non-viable.
+ * \param g Grille dans laquelle rendre une cellule non-viable.
+ * \return 1 si la cellule est non-viable, 0 sinon.
+ */
+static inline int est_non_viable(int i, int j, grille g){return g.cellules[i][j] == -1;}
 
 // rend morte la cellule (i,j) de la grille g
 /**
@@ -99,5 +124,13 @@ void copie_grille (grille gs, grille gd);
  * \brief Efface tout le terminal.
  */
 void efface_ecran ();
+
+/**
+ * \brief Verifie si toutes les cellules vivantes de la grille g sont aussi vivantes dans la grille g2.
+ * \param g Première grille à comparer.
+ * \param g2 Grille comparée à g.
+ * \return 0 si les grilles sont différentes, 1 sinon.
+ */
+int sont_identiques(grille g, grille g2);
 
 #endif

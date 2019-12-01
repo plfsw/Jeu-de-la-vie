@@ -1,24 +1,48 @@
-0CC = gcc
-OBJ = main.o grille.o io.o jeu.o
+CC = gcc
 DEP = grille.h io.h jeu.h
-CFLAGS = -Wall -I include -g
+MODE = GRAPHICAL
+TEXT_MODE = TEXT
+
+ifeq ($(MODE), $(TEXT_MODE))
+	OBJ = main.o grille.o jeu.o io.o
+	CFLAGS = -Wall -I include -g
+else
+	OBJ = main.o grille.o jeu.o io_cairo.o
+	CFLAGS = -Wall -I include -g -lcairo -lm -lX11 -I/usr/include/cairo
+endif
 
 vpath %.c src/
 vpath %.h include/
 vpath %.o obj/
+vpath %.a lib/
 
 %.o: %.c $(DEP)
-	@$(CC) -c -o $@ $< $(CFLAGS)
-
-main: $(OBJ)
-	@$(CC) -o $@ $^ $(CFLAGS)
+	@$(CC) -D $(MODE) -c -o $@ $< $(CFLAGS)
 	@mkdir -p obj
 	@mv *.o obj/
 
-clean:
-	@rm main
-	@rm obj/*
 
+
+main: $(OBJ) libjeu.a
+	@mv obj/*.o ./ 
+	@$(CC) -o $@ -Llib $(OBJ) $(CFLAGS) -ljeu
+	@mv *.o obj/
+	@mkdir -p bin
+	@mv main bin/
+
+libjeu.a: grille.o jeu.o
+	@ar -crv libjeu.a obj/grille.o obj/jeu.o
+	@mkdir -p  lib
+	@mv *.a lib/
+
+clean:
+	@rm -f bin/main
+	@rm -f obj/*
+	@rm -f *.o
+
+cleanlib:
+	@rm lib/*
+	
 doc:
 	@doxygen
 

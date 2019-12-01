@@ -6,7 +6,18 @@
 #ifndef __JEU_H
 #define __JEU_H
 
+#define PMAX 100
+
 #include "grille.h"
+
+/**
+ * \brief Détermine la periodicité d'une grille.
+ * \param g Grille dont on cherche à déterminer la période.
+ * \param *compte_voisins_vivants Pointeur sur une fonction de calcul des voisins d'une cellule.
+ * \return -1 si la periode excède PMAX ou si il l'évolution de la grille n'est pas période, la periode sinon.
+ */
+
+int periode(grille g, int (*compte_voisins_vivants)(int, int, grille));
 
 // modulo modifié pour traiter correctement les bords i=0 et j=0
 // dans le calcul des voisins avec bords cycliques
@@ -63,4 +74,5 @@ void evolue_vi (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
  * \param ga Grille contenant l'age des cellules de g
  */
 void vieillir(grille *g, grille *ga);
+
 #endif
