@@ -18,7 +18,7 @@ vpath %.a lib/
 
 %.o: %.c $(DEP)
 	@$(CC) -D $(MODE) -c -o $@ $< $(CFLAGS)
-	@mkdir -p bin
+	@mkdir -p obj
 	@mv *.o obj/
 
 
@@ -47,7 +47,7 @@ doc:
 	@doxygen
 
 dist:
-	@tar -Jcvf LafossePierre-GoL-v0.2.tar.xz makefile Doxyfile src/ include/
+	@tar -Jcvf LafossePierre-GoL-v0.2.tar.xz makefile Doxyfile src/ include/ README.md
 
 distclean:
 	@rm -r doc

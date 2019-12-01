@@ -57,7 +57,7 @@ Pour activer/désactiver le mode cyclique, appuyez sur `c`.
 Pour activer/désactiver le mode vieillissement, appuyez sur `v`.   
 ![Demonstration du vieillissement](https://i.imgur.com/8WMKHHX.gif)  
 Pour afficher la périodicité d'une grille, appuyez sur `o`.  
-![Demonstration du calcul de la période](https://i.imgur.com/EdJ5a97.gif)
+![Demonstration du calcul de la période](https://i.imgur.com/EdJ5a97.gif)  
 Pour quitter le jeu de la vie, appuyez sur `clique droit` ou sur `q` en mode texte.  
 ## Nom des versions
 
