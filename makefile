@@ -47,7 +47,7 @@ doc:
 	@doxygen
 
 dist:
-	@tar -Jcvf LafossePierre-GoL-v0.2.tar.xz makefile Doxyfile src/ include/ README.md
+	@tar -Jcvf LafossePierre-GoL-v0.1.tar.xz makefile Doxyfile src/ include/ README.md
 
 distclean:
 	@rm -r doc

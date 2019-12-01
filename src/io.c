@@ -96,6 +96,7 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
                 alloue_grille(g->nbl , g->nbc, gc);
                 alloue_grille(g->nbl , g->nbc, ga);
                 copie_grille(*g, *ga);
+								
                 break;
             }
             case 'c':
