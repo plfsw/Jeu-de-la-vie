@@ -24,7 +24,8 @@
 #define BLACK 0.22, 0.22, 0.22
 #define GREY 0.88, 0.88, 0.88
 #define BROWN 0.51, 0.41, 0.32
-
+#define SIZERECT 13
+#define MAXSTRINGLENGTH 50
 
 /**
  * \brief Débute le jeu de la vie.

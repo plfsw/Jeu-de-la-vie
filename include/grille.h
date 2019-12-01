@@ -29,7 +29,12 @@ typedef struct {
 void alloue_grille (int l, int c, grille* g);
 
 
-int tous_mortes(grille g);
+/**
+ * \brief Verifie si toutes les cellules de la grille g sont mortes.
+ * \param g Grille dans laquelle on cherche si toutes les cellules sont mortes.
+ * \return 1 si toutes les cellules sont mortes, 0 sinon.
+ */
+int toutes_mortes(grille g);
 
 /**
  * \brief Libère une grille.
@@ -120,6 +125,12 @@ void copie_grille (grille gs, grille gd);
  */
 void efface_ecran ();
 
+/**
+ * \brief Verifie si toutes les cellules vivantes de la grille g sont aussi vivantes dans la grille g2.
+ * \param g Première grille à comparer.
+ * \param g2 Grille comparée à g.
+ * \return 0 si les grilles sont différentes, 1 sinon.
+ */
 int sont_identiques(grille g, grille g2);
 
 #endif

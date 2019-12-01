@@ -8,7 +8,7 @@ ifeq ($(MODE), $(TEXT_MODE))
 	CFLAGS = -Wall -I include -g
 else
 	OBJ = main.o grille.o jeu.o io_cairo.o
-	CFLAGS = -Wall -I include -g -lcairo -lm -lX11 -Iinclude -I/usr/include/cairo
+	CFLAGS = -Wall -I include -g -lcairo -lm -lX11 -I/usr/include/cairo
 endif
 
 vpath %.c src/
@@ -38,6 +38,7 @@ libjeu.a: grille.o jeu.o
 clean:
 	@rm -f bin/main
 	@rm -f obj/*
+	@rm -f *.o
 
 cleanlib:
 	@rm lib/*

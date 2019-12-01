@@ -40,9 +40,10 @@ void affiche_grille (grille g, int mode, int v, int p){
         printf(", vieillissement activé\n");
     }
     else printf(", vieillissement desactivé\n");
-  if(p == -1) printf("Pas de periode ou periode trop importante.\n");
-  else if (!p) printf("Utiliser la touche 'o' pour calculer la periode.\n");
-  else printf("Periode: %d\n", p);
+    if(p == -1) printf("Pas de période ou période trop importante.\n");
+    else if (!p) printf("Utiliser la touche 'o' pour calculer la période.\n");
+    else if (p == 1) printf("1, la grille est stable.\n");
+    else printf("Période: %d\n", p);
 	printf("Temps d'évolution: %d\n", g.age);
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
@@ -68,8 +69,8 @@ void debut_jeu(grille *g, grille *gc, grille *ga){
 	char str[40];
 	char c = getchar();
 	int cyclique = 1, vieillissement = 1, p = 0;
-  void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
-  int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
+    void (*pt_evolue)(grille*, grille*, grille*, int (*)(int, int, grille)) = evolue_vi;
+    int (*pt_voisins)(int, int, grille) = compte_voisins_vivants_cyclique;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {

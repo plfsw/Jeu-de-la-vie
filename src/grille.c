@@ -75,7 +75,7 @@ void libere_grille(grille* g){
 }
 
 //verifie si toutes les cellules sont mortes
-int tous_mortes(grille g){
+int toutes_mortes(grille g){
   for(int i = 0; i < g.nbl; i++){
     for(int j = 0; j < g.nbc; j++){
       if(est_vivante(i, j, g)) return 0;
@@ -84,6 +84,8 @@ int tous_mortes(grille g){
   return 1;
 }
 
+//verifie si deux grilles sont identiques, si toutes les cellules vivantes
+//de la premiere grilles sont aussi vivantes dans le seconde.
 int sont_identiques(grille g, grille g2){
   for(int i = 0; i < g.nbl; i++){
     for(int j = 0; j < g.nbc; j++){

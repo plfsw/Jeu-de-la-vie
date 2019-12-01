@@ -75,5 +75,4 @@ void evolue_vi (grille *g, grille *gc, grille *ga, int (*pf)(int, int, grille));
  */
 void vieillir(grille *g, grille *ga);
 
-int tous_mortes(grille g);
 #endif

@@ -8,7 +8,7 @@
 #include "io.h"
 #include "jeu.h"
 #ifndef TEXT
-  #include "io_cairo.h"
+    #include "io_cairo.h"
 #endif
 
 int main (int argc, char ** argv) {
@@ -22,18 +22,18 @@ int main (int argc, char ** argv) {
 	grille g, gc, ga;
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
-  alloue_grille (g.nbl, g.nbc, &ga);
-  copie_grille(g, ga);
+    alloue_grille (g.nbl, g.nbc, &ga);
+    copie_grille(g, ga);
   
-  #ifndef TEXT
-	debut_jeu_cairo(&g, &gc, &ga);
-  #else
-  affiche_grille(ga, 1, 1, 0);
-  debut_jeu(&g, &gc, &ga);
-  #endif
+    #ifndef TEXT
+        debut_jeu_cairo(&g, &gc, &ga);
+    #else
+        affiche_grille(ga, 1, 1, 0);
+        debut_jeu(&g, &gc, &ga);
+    #endif
 
 	libere_grille(&g);
 	libere_grille(&gc);
-  libere_grille (&ga);
+    libere_grille (&ga);
 	return 0;
 }

@@ -5,6 +5,8 @@
 
 #include "jeu.h"
 
+//détermine la période d'une grille. 
+//Si aucune période n'est trouvée, on cherche si la période commence plus tard dans l'évolution de la grille.
 int periode(grille g, int (*compte_voisins_vivants)(int, int, grille)){
   int p = 1;
   grille gs, gs2;
@@ -13,18 +15,25 @@ int periode(grille g, int (*compte_voisins_vivants)(int, int, grille)){
   alloue_grille(g.nbl, g.nbc, &gs2);
   copie_grille(g, gs2);
   evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
+  
   grille tab[PMAX];
   int ftab = 0;
+  
+  //Recherche de la periode à partir de la position actuelle des cellules
   while(p < PMAX && !(sont_identiques(g, gs))) {
-    if(tous_mortes(gs)) return -1;
+    if(toutes_mortes(gs)) return -1;
     evolue(&gs, &gs2, &gs2, compte_voisins_vivants);
     p++;
     tab[ftab] = gs;
     ftab++;
   }
+  
+  //Si la perioe n'a pas été trouvée, recherche à partir des positions suivantes
   for(int i = 0; i < PMAX && p == PMAX; i++)
     p = periode(tab[i], compte_voisins_vivants);
+  
   if(p == PMAX) return -1;
+  
   else return p;
  }
 
